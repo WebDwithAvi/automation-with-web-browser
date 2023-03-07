@@ -1,0 +1,40 @@
+const puppeteer=require("puppeteer");
+let page;
+console.log("Before");
+const browseropenpromise=puppeteer.launch({headless:false});
+
+const pagesarrayPromise=browseropenpromise.then(function (browser) 
+{
+    const pagesarrayPromise=browser.pages();
+    return pagesarrayPromise; 
+}).then(function(browserpages){
+    page=browserpages[0];
+   let gotopromise= page.goto("https://www.google.co.in/");
+   return gotopromise;
+}).then(function(){
+    let elementwaitPromise=page.waitForSelector("input",{visible:true});
+    return elementwaitPromise; 
+})
+.then( function(){
+    let keyswillbegetpromise=page.type("input","man meri jaan");
+    return keyswillbegetpromise;    
+}).then(function(){
+    let enterwillbepressed=page.keyboard.press("Enter");
+    return enterwillbepressed;
+}).then (function(){
+   let elementwaitPromise= page.waitForSelector("h3.LC20lb.MBeuO.DKV0Md",{visible:true});
+   return elementwaitPromise;
+}).then(function(){
+    let pagewillbeclicked=page.click("h3.LC20lb.MBeuO.DKV0Md");
+    return pagewillbeclicked;
+})
+    .catch(function(err){
+        console.log(err);
+    })
+
+
+    //console.log("Reached google Home Page");
+    
+ 
+
+
